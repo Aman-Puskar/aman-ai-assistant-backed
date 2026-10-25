@@ -7,8 +7,8 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",
-        "https://aman-ai-assistant.vercel.app/"
+        # "http://localhost:5173",
+        "https://aman-ai-assistant.vercel.app"
     ],
     allow_methods=["GET"],
     allow_headers=["*"],
