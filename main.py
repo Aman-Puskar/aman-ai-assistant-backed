@@ -7,6 +7,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "https://aman26-portfolio-nine.vercel.app",
         "http://localhost:5173",
         "https://aman-ai-assistant.vercel.app"
     ],
