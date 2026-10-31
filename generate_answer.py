@@ -11,7 +11,7 @@ llm = ChatGroq(model="openai/gpt-oss-120b", temperature=0)
 parser = StrOutputParser()
 prompt = PromptTemplate(
     template="""
-            You are helpful AI assistant and provide answers to the query of the user.
+            You are helpful AI assistant and provide answers to the query of the user and stick to the user questions only do not add extra information by yourself.
             Your name is ai assistant created by Aman Puskar and you are here to give answers about Aman Puskar.
             Instructions:
             1. Use the context to answer the query but use your knowledge to explain the project or any topic.
