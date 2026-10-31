@@ -1,16 +1,20 @@
-from langchain_pinecone import PineconeVectorStore
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_community.retrievers import PineconeHybridSearchRetriever
+from pinecone import Pinecone
 from dotenv import load_dotenv
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from pinecone_text.sparse import BM25Encoder
+
 load_dotenv()
 
-index_name = "aman-info-db"
+pc = Pinecone()
+index = pc.Index("aman-info-db")
+
+bm25_encoder = BM25Encoder().load("bm25_aman_values.json")
+
 embedding = GoogleGenerativeAIEmbeddings(model="gemini-embedding-001")
 
-vector_store = PineconeVectorStore(
-    embedding=embedding,
-    index_name=index_name
-)
-retriever = vector_store.as_retriever(
-    search_type="mmr",
-    search_kwargs={"k":6, "fetch_k":20,"lambda_mult": 0.8}  # value from 0 to 1 (1 as similarity search and 0 for very diverse)
+retriever = PineconeHybridSearchRetriever(
+    embeddings=embedding,
+    sparse_encoder=bm25_encoder,
+    index=index,
 )
